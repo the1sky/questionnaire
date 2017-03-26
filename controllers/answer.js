@@ -99,11 +99,17 @@ exports.submit = function (req, res) {
 exports.getScoreResult = function (req, res) {
   var sessionID = req.sessionID;
   Answer.find({sessionID: sessionID}, function (err, docs) {
-    var score = Math.ceil(Math.random() * 100);
-    res.json({
-      success: true,
-      image: getImages(score)
-    });
+    if (!err && docs.length > 0) {
+      var score = Math.ceil(Math.random() * 100);
+      res.json({
+        success: true,
+        image: getImages(score)
+      });
+    } else {
+      res.json({
+        success: 0
+      });
+    }
   })
 };
 

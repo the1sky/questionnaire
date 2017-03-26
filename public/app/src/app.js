@@ -15,7 +15,7 @@ var history = createBrowserHistory();
 var Container = React.createClass({
   render() {
     return (
-      <div style={{height:'100%'}}>
+      <div style={{height: '100%'}}>
         {this.props.children}
       </div>
     )
@@ -50,6 +50,7 @@ var App = React.createClass({
     var history = this.props.history;
     $.ajax({
       type: 'post',
+      url: '/questionnaire/' + questionnaireId,
       data: {
         answer: JSON.stringify(answer)
       },
@@ -77,6 +78,9 @@ var Result = React.createClass({
           self.setState({
             image: data.image,
           });
+        } else {
+          var history = self.props.history;
+          history.replaceState(null, '/questionnaire/' + questionnaireId);
         }
       }
     });

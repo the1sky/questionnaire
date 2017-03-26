@@ -42695,6 +42695,7 @@ var App = React.createClass({
     var history = this.props.history;
     $.ajax({
       type: 'post',
+      url: '/questionnaire/' + questionnaireId,
       data: {
         answer: JSON.stringify(answer)
       },
@@ -42720,10 +42721,14 @@ var Result = React.createClass({
     $.ajax({
       url: '/user/getScore/' + questionnaireId,
       success: function (data) {
+        console.log(data);
         if (data.success) {
           self.setState({
             image: data.image
           });
+        } else {
+          var history = self.props.history;
+          history.replaceState(null, '/questionnaire/' + questionnaireId);
         }
       }
     });
