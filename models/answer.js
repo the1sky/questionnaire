@@ -4,6 +4,7 @@ var ObjectId = Schema.Types.ObjectId;
 
 var Answer = mongoose.model('Answer', new Schema({
     user: ObjectId,
+    sessionID:String,
     questionnaire: {
         type: ObjectId,
         ref: 'Questionnaire'

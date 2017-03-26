@@ -7,6 +7,7 @@ var Option = mongoose.model('Option', new Schema({
         type: ObjectId,
         ref: 'Question'
     },
+    isRight:Boolean,
     content: String
 }));
 

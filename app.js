@@ -3,20 +3,22 @@ var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var compression = require('compression')
 var MongoStore = require('connect-mongo')(session);
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/questionnaire');
 
 app.use(session({
-    secret: 'questionnaire',
-    cookie: {maxAge: 1000 * 60 * 60 * 3},
-    store: new MongoStore({
-        url: 'mongodb://localhost/questionnaire',
-        collection: 'sessions'
-    }),
-    resave: true,
-    saveUninitialized: false
+  secret: 'questionnaire',
+  cookie: {maxAge: 1000 * 60 * 60 * 24 * 365},
+  store: new MongoStore({
+    url: 'mongodb://localhost/questionnaire',
+    collection: 'sessions'
+  }),
+  resave: true,
+  saveUninitialized: true
 }));
+app.use(compression());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -54,18 +56,19 @@ app.delete('/data/option/:option', Admin.loginRequired, Option.delete);
 app.get('/questionnaire/:questionnaire', Answer.indexPage);
 app.post('/questionnaire/:questionnaire', Answer.submit);
 app.get('/user/questionnaire/:questionnaire', Answer.questionnaireData);
-app.get('/result/:questionnaire', Answer.resultPage);
+app.get('/user/getScore/:questionnaire', Answer.getScoreResult);
+app.get('/result/:questionnaire', Answer.indexPage);
 app.get('/statistics/:questionnaire', Answer.statistics);
 
 app.use(function (req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
 
 app.use(function (err, req, res, next) {
-    res.status(err.status || 500);
-    res.send(err.message);
+  res.status(err.status || 500);
+  res.send(err.message);
 });
 
 var port = process.env.PORT || 8080;
