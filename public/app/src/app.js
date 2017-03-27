@@ -77,6 +77,7 @@ var Result = React.createClass({
         if (data.success) {
           self.setState({
             image: data.image,
+            score: data.score,
           });
         } else {
           var history = self.props.history;
@@ -91,6 +92,7 @@ var Result = React.createClass({
   },
   render: function () {
     var imageUrl = this.state.image;
+    var score = this.state.score;
     var styles = {
       backgroundImage: 'url(' + imageUrl + ')',
       backgroundSize: 'cover',
@@ -98,8 +100,21 @@ var Result = React.createClass({
       backgroundPosition: 'center',
       height: '100%',
     };
+    var scoreStyles = {
+      position: 'fixed',
+      color: '#FFF',
+      display: 'inline-block',
+      top: '12%',
+      fontSize: '60px',
+      left: '50%',
+      marginLeft: '-60px',
+      textShadow: '5px 2px 6px rgba(0,0,0,0.6)',
+      fontStyle: 'italic',
+      fontWeight: 'bold',
+    };
     return (
       <div style={{height: '100%'}}>
+        <div style={scoreStyles}>{score}分</div>
         {
           this.state.image ?
             <div style={styles}/> : null

@@ -42721,10 +42721,10 @@ var Result = React.createClass({
     $.ajax({
       url: '/user/getScore/' + questionnaireId,
       success: function (data) {
-        console.log(data);
         if (data.success) {
           self.setState({
-            image: data.image
+            image: data.image,
+            score: data.score
           });
         } else {
           var history = self.props.history;
@@ -42739,6 +42739,7 @@ var Result = React.createClass({
   },
   render: function () {
     var imageUrl = this.state.image;
+    var score = this.state.score;
     var styles = {
       backgroundImage: 'url(' + imageUrl + ')',
       backgroundSize: 'cover',
@@ -42746,9 +42747,27 @@ var Result = React.createClass({
       backgroundPosition: 'center',
       height: '100%'
     };
+    var scoreStyles = {
+      position: 'fixed',
+      color: '#FFF',
+      display: 'inline-block',
+      top: '12%',
+      fontSize: '60px',
+      left: '50%',
+      marginLeft: '-60px',
+      textShadow: '5px 2px 6px rgba(0,0,0,0.6)',
+      fontStyle: 'italic',
+      fontWeight: 'bold'
+    };
     return React.createElement(
       'div',
       { style: { height: '100%' } },
+      React.createElement(
+        'div',
+        { style: scoreStyles },
+        score,
+        '\u5206'
+      ),
       this.state.image ? React.createElement('div', { style: styles }) : null
     );
   }

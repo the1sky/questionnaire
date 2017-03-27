@@ -103,7 +103,8 @@ exports.getScoreResult = function (req, res) {
       var score = Math.ceil(Math.random() * 100);
       res.json({
         success: true,
-        image: getImages(score)
+        image: getImages(score),
+        score: score,
       });
     } else {
       res.json({
