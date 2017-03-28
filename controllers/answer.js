@@ -8,6 +8,7 @@ var Answer = require('../models/answer');
 
 function getImages(score) {
   var url = '/images/';
+  return url + 'test.png';
   if (score == 100) {
     return url + 'score_100.jpeg';
   } else if (score >= 96 && score <= 99) {
@@ -20,6 +21,10 @@ function getImages(score) {
     var suffix = Math.ceil(Math.random() * 5);
     return url + 'score_random_' + suffix + '.jpeg';
   }
+}
+
+function queryOptionScore(questionId, optionId) {
+  Option.findOne({})
 }
 
 exports.indexPage = function (req, res) {
@@ -78,6 +83,19 @@ exports.submit = function (req, res) {
     questionnaire: questionnaireId,
     content: answer
   }).save(function (err, answer) {
+    console.log(answer);
+    var arr = [];
+    var result = JSON.parse(answer.content);
+    for (var questionId in result) {
+      var options = result[questionId];
+      if (options instanceof Array) {
+        options.forEach(function (val, idx) {
+          console.log(questionId, val);
+        });
+      } else {
+        console.log(questionId, options);
+      }
+    }
     if (err) {
       return res.json({
         success: false,
@@ -132,7 +150,6 @@ exports.statistics = function (req, res) {
     .lean()
     .exec(function (err, questionnaire) {
       var questions = questionnaire.questions;
-      console.log(questions);
       async.each(questions, function (question, callback) {
         if (question.type == 1) {
           Option.find({question: question._id})
