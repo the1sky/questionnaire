@@ -6,25 +6,30 @@ var Question = require('../models/question');
 var Option = require('../models/option');
 var Answer = require('../models/answer');
 
+/**
+ * 返回图片地址
+ *
+ * @param score
+ * @returns {string}
+ */
 function getImages(score) {
   var url = '/images/';
-  return url + 'test.png';
+  var suffix = 0;
   if (score == 100) {
-    return url + 'score_100.jpeg';
+    return url + 'score_100.jpg';
   } else if (score >= 96 && score <= 99) {
-    return url + 'score_96_99.jpeg';
+    suffix = Math.floor(Math.random() * 5);
+    return url + 'score_96_99_' + suffix + '.jpg';
   } else if (score >= 71 && score <= 95) {
-    return url + 'score_71_95.jpeg';
+    suffix = Math.floor(Math.random() * 7);
+    return url + 'score_71_95_' + suffix + '.jpg';
   } else if (score >= 56 && score <= 70) {
-    return url + 'score_56_70.jpeg';
+    suffix = Math.floor(Math.random() * 9);
+    return url + 'score_56_70_' + suffix + '.jpg';
   } else {
-    var suffix = Math.ceil(Math.random() * 5);
-    return url + 'score_random_' + suffix + '.jpeg';
+    suffix = Math.floor(Math.random() * 5);
+    return url + 'score_0_55_' + suffix + '.jpg';
   }
-}
-
-function queryOptionScore(questionId, optionId) {
-  Option.findOne({})
 }
 
 exports.indexPage = function (req, res) {
@@ -75,27 +80,51 @@ exports.questionnaireData = function (req, res) {
   });
 };
 
+/**
+ * 提交问卷
+ *
+ * @param req
+ * @param res
+ */
 exports.submit = function (req, res) {
   var questionnaireId = req.params.questionnaire;
+  var sessionID = req.sessionID;
   var answer = req.body.answer;
   new Answer({
-    sessionID: req.sessionID || 'passby',
+    sessionID: sessionID || 'passby',
     questionnaire: questionnaireId,
     content: answer
   }).save(function (err, answer) {
-    console.log(answer);
-    var arr = [];
     var result = JSON.parse(answer.content);
+    var questionIds = [];
+    var optionIds = [];
     for (var questionId in result) {
       var options = result[questionId];
       if (options instanceof Array) {
         options.forEach(function (val, idx) {
-          console.log(questionId, val);
+          questionIds.push(questionId);
+          optionIds.push(val);
         });
       } else {
-        console.log(questionId, options);
+        questionIds.push(questionId);
+        optionIds.push(options);
       }
     }
+
+    //查询各option项
+    Option.find({question: {$in: questionIds}, _id: {$in: optionIds}}, function (err, docs) {
+      var score = 0;
+      docs.forEach(function (item, idx) {
+        score += item.score || 0;
+      });
+
+      //保存得分
+      Answer.update({
+        'sessionID': sessionID,
+        'questionnaire': questionnaireId
+      }, {$set: {'score': score}}, function (err, doc) {
+      });
+    });
     if (err) {
       return res.json({
         success: false,
@@ -116,9 +145,10 @@ exports.submit = function (req, res) {
  */
 exports.getScoreResult = function (req, res) {
   var sessionID = req.sessionID;
-  Answer.find({sessionID: sessionID}, function (err, docs) {
-    if (!err && docs.length > 0) {
-      var score = Math.ceil(Math.random() * 100);
+  var questionnaireId = req.params.questionnaire;
+  Answer.findOne({sessionID: sessionID, 'questionnaire': questionnaireId}, function (err, docs) {
+    if (!err) {
+      var score = docs._doc.score;
       res.json({
         success: true,
         image: getImages(score),
@@ -126,7 +156,7 @@ exports.getScoreResult = function (req, res) {
       });
     } else {
       res.json({
-        success: 0
+        success: true
       });
     }
   })
@@ -160,7 +190,6 @@ exports.statistics = function (req, res) {
                 option.count = 0;
               });
               question.options = options;
-              console.log(options);
               callback(err);
             });
         } else if (question.type == 2) {
@@ -197,7 +226,6 @@ exports.statistics = function (req, res) {
                     if (question._id == questionId) {
                       if (question.type == 1) {
                         var optionId = answer[questionId];
-                        console.log(questionId, optionId);
                         for (var j = 0, l = question.options.length; j < l; j++) {
                           var option = question.options[j];
                           if (option._id == optionId) {

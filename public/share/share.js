@@ -1,10 +1,10 @@
 /**
  * Created by nant on 16/9/8.
  */
-var imgUrl = 'images/share.png';
+var imgUrl = 'images/share.jpeg';
 var lineLink = window.location.href;
 var descContent = "两只熊问券调查";
-var shareTitle = '免费领取，机不可失';
+var shareTitle = '测试你的钓鱼级别，新手、大师一测就知道。。';
 var appid = '';
 
 function shareFriend() {

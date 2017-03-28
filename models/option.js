@@ -7,7 +7,10 @@ var Option = mongoose.model('Option', new Schema({
     type: ObjectId,
     ref: 'Question'
   },
-  score: Number,
+  score: {
+    type: Number,
+    default: 0,
+  },
   content: String
 }));
 
