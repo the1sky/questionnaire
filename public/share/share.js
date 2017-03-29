@@ -1,7 +1,7 @@
 /**
  * Created by nant on 16/9/8.
  */
-var imgUrl = 'images/share.jpeg';
+var imgUrl = '/images/share.jpeg';
 var lineLink = window.location.href;
 var descContent = "两只熊问券调查";
 var shareTitle = '测试你的钓鱼级别，新手、大师一测就知道。。';
@@ -23,8 +23,8 @@ function shareTimeline() {
   alert('timeline');
   WeixinJSBridge.invoke('shareTimeline', {
     "img_url": imgUrl,
-    "img_width": "640",
-    "img_height": "640",
+    "img_width": "120",
+    "img_height": "120",
     "link": lineLink,
     "desc": descContent,
     "title": shareTitle
