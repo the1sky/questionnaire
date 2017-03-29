@@ -39,44 +39,44 @@ exports.indexPage = function (req, res) {
 exports.questionnaireData = function (req, res) {
   var sessionID = req.sessionID;
   Answer.find({sessionID: sessionID}, function (err, docs) {
-    if (!err && docs.length > 0) {
-      res.json({
-        success: true,
-        done: true,
-      });
-    } else {
-      var questionnaireId = req.params.questionnaire;
-      Questionnaire.findById(questionnaireId)
-        .select('title questions')
-        .populate({
-          path: 'questions',
-          select: 'content type'
-        })
-        .exec(function (err, questionaire) {
-          async.map(questionaire.questions, function (question, callback) {
-            Option.find({question: question._id})
-              .select('content')
-              .exec(function (err, options) {
-                var _question = question.toObject();
-                _question.options = options;
-                callback(err, _question);
-              })
-          }, function (err, results) {
-            if (err) {
-              return res.json({
-                success: false,
-                error: err.message
-              })
-            }
-            res.json({
-              success: true,
-              title: questionaire.title,
-              questions: results,
-              done: false
-            });
+    //if (!err && docs.length > 0) {
+    //  res.json({
+    //    success: true,
+    //    done: true,
+    //  });
+    //} else {
+    var questionnaireId = req.params.questionnaire;
+    Questionnaire.findById(questionnaireId)
+      .select('title questions')
+      .populate({
+        path: 'questions',
+        select: 'content type'
+      })
+      .exec(function (err, questionaire) {
+        async.map(questionaire.questions, function (question, callback) {
+          Option.find({question: question._id})
+            .select('content')
+            .exec(function (err, options) {
+              var _question = question.toObject();
+              _question.options = options;
+              callback(err, _question);
+            })
+        }, function (err, results) {
+          if (err) {
+            return res.json({
+              success: false,
+              error: err.message
+            })
+          }
+          res.json({
+            success: true,
+            title: questionaire.title,
+            questions: results,
+            done: false
           });
         });
-    }
+      });
+    //}
   });
 };
 
