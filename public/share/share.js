@@ -5,7 +5,7 @@ var imgUrl = '/images/share.jpeg';
 var lineLink = window.location.href;
 var descContent = "两只熊问券调查";
 var shareTitle = '测试你的钓鱼级别，新手、大师一测就知道。。';
-var appid = '';
+var appid = 'wx22667ab599d6bcd2';
 
 function shareFriend() {
   WeixinJSBridge.invoke('sendAppMessage', {
