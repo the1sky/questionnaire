@@ -2,7 +2,7 @@
  * Created by nant on 16/9/8.
  */
 var shareObj = {
-  imgUrl: '/images/share.jpeg',
+  imgUrl: window.location.origin + '/images/share.jpeg',
   link: window.location.href,
   desc: '两只熊问券调查',
   title: '测试你的钓鱼级别，新手、大师一测就知道。。',
