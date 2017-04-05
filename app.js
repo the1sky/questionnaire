@@ -8,6 +8,10 @@ var MongoStore = require('connect-mongo')(session);
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/questionnaire');
 
+app.set('view engine', 'jade'); // 设置模板引擎
+app.set('views', './view');  // 设置模板相对路径(相对当前目录)
+app.locals.basedir = './';
+
 app.use(session({
   secret: 'questionnaire',
   cookie: {maxAge: 1000 * 60 * 60 * 24 * 365},
@@ -71,6 +75,6 @@ app.use(function (err, req, res, next) {
   res.send(err.message);
 });
 
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 80;
 console.log('listen port ======== ' + port)
 app.listen(port);

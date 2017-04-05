@@ -1,46 +1,53 @@
 /**
  * Created by nant on 16/9/8.
  */
-var imgUrl = '/images/share.jpeg';
-var lineLink = window.location.href;
-var descContent = "两只熊问券调查";
-var shareTitle = '测试你的钓鱼级别，新手、大师一测就知道。。';
-var appid = 'wx22667ab599d6bcd2';
+var shareObj = {
+  imgUrl: '/images/share.jpeg',
+  link: window.location.href,
+  desc: '两只熊问券调查',
+  title: '测试你的钓鱼级别，新手、大师一测就知道。。',
+};
 
-function shareFriend() {
-  WeixinJSBridge.invoke('sendAppMessage', {
-    "appid": appid,
-    "img_url": imgUrl,
-    "img_width": "640",
-    "img_height": "640",
-    "link": lineLink,
-    "desc": descContent,
-    "title": shareTitle
-  }, function (res) {
-  })
-}
-function shareTimeline() {
-  alert('timeline');
-  WeixinJSBridge.invoke('shareTimeline', {
-    "appid": appid,
-    "img_url": imgUrl,
-    "img_width": "120",
-    "img_height": "120",
-    "link": lineLink,
-    "desc": descContent,
-    "title": shareTitle
-  }, function (res) {
-  });
-}
-// 当微信内置浏览器完成内部初始化后会触发WeixinJSBridgeReady事件。
-document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
-  // 发送给好友
-  WeixinJSBridge.on('menu:share:appmessage', function (argv) {
-    shareFriend();
+wx.config({
+  debug: false,
+  appId: appId,
+  timestamp: timestamp,
+  nonceStr: nonceStr,
+  signature: signature,
+  jsApiList: [
+    'onMenuShareTimeline',
+    'onMenuShareAppMessage'
+  ] // 必填，需要使用的JS接口列表，
+});
+
+wx.ready(function () {
+  wx.onMenuShareAppMessage({
+    title: shareObj.desc,
+    desc: shareObj.title,
+    link: shareObj.link,
+    imgUrl: shareObj.imgUrl,
+    trigger: function (res) {
+    },
+    success: function (res) {
+    },
+    cancel: function (res) {
+    },
+    fail: function (res) {
+      alert(JSON.stringify(res));
+    }
   });
 
-  // 分享到朋友圈
-  WeixinJSBridge.on('menu:share:timeline', function (argv) {
-    shareTimeline();
+  wx.onMenuShareTimeline({
+    title: shareObj.title,
+    link: shareObj.link,
+    imgUrl: shareObj.imgUrl,
+    success: function () {
+    },
+    cancel: function () {
+    }
   });
-}, false);
+});
+
+wx.error(function (res) {
+  JSON.stringify(res)
+});

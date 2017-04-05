@@ -5,6 +5,9 @@ var Questionnaire = require('../models/questionnaire');
 var Question = require('../models/question');
 var Option = require('../models/option');
 var Answer = require('../models/answer');
+var http = require('http');
+var cache = require('memory-cache');
+var sha1 = require('sha1'); //签名算法
 
 /**
  * 返回图片地址
@@ -33,7 +36,17 @@ function getImages(score) {
 }
 
 exports.indexPage = function (req, res) {
-  res.sendFile(path.join(__dirname, '../view/app/index.html'));
+  console.log(1);
+  var wechat_cfg = require('../server/config/wechat.cfg');
+  console.log(wechat_cfg);
+  var signature = require('../server/sign/signature');
+
+  var url = req.protocol + '://' + req.host + req.originalUrl; //获取当前url
+  signature.sign(url, function (signatureMap) {
+    console.log(signatureMap);
+    signatureMap.appId = wechat_cfg.appid;
+    res.render('app/index', signatureMap);
+  });
 };
 
 exports.questionnaireData = function (req, res) {
