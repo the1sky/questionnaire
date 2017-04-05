@@ -22,6 +22,7 @@ function shareFriend() {
 function shareTimeline() {
   alert('timeline');
   WeixinJSBridge.invoke('shareTimeline', {
+    "appid": appid,
     "img_url": imgUrl,
     "img_width": "120",
     "img_height": "120",
