@@ -29,19 +29,19 @@ var App = React.createClass({
       url: '/user/questionnaire/' + questionnaireId,
       success: function (data) {
         if (data.success) {
-          //if (data.done) {
-          //  var history = self.props.history;
-          //  history.replaceState(null, '/result/' + questionnaireId);
-          //} else {
-          //  self.setState({
-          //    title: data.title,
-          //    questions: data.questions
-          //  });
-          //}
-          self.setState({
-            title: data.title,
-            questions: data.questions
-          });
+          if (data.done) {
+            var history = self.props.history;
+            history.replaceState(null, '/result/' + questionnaireId);
+          } else {
+            self.setState({
+              title: data.title,
+              questions: data.questions
+            });
+          }
+          //self.setState({
+          //  title: data.title,
+          //  questions: data.questions
+          //});
         }
       }
     });

@@ -8,6 +8,8 @@ var Answer = require('../models/answer');
 var http = require('http');
 var cache = require('memory-cache');
 var sha1 = require('sha1'); //签名算法
+var wechat_cfg = require('../server/config/wechat.cfg');
+var signature = require('../server/sign/signature');
 
 /**
  * 返回图片地址
@@ -36,14 +38,8 @@ function getImages(score) {
 }
 
 exports.indexPage = function (req, res) {
-  console.log(1);
-  var wechat_cfg = require('../server/config/wechat.cfg');
-  console.log(wechat_cfg);
-  var signature = require('../server/sign/signature');
-
   var url = req.protocol + '://' + req.host + req.originalUrl; //获取当前url
   signature.sign(url, function (signatureMap) {
-    console.log(signatureMap);
     signatureMap.appId = wechat_cfg.appid;
     res.render('app/index', signatureMap);
   });
@@ -52,44 +48,44 @@ exports.indexPage = function (req, res) {
 exports.questionnaireData = function (req, res) {
   var sessionID = req.sessionID;
   Answer.find({sessionID: sessionID}, function (err, docs) {
-    //if (!err && docs.length > 0) {
-    //  res.json({
-    //    success: true,
-    //    done: true,
-    //  });
-    //} else {
-    var questionnaireId = req.params.questionnaire;
-    Questionnaire.findById(questionnaireId)
-      .select('title questions')
-      .populate({
-        path: 'questions',
-        select: 'content type'
-      })
-      .exec(function (err, questionaire) {
-        async.map(questionaire.questions, function (question, callback) {
-          Option.find({question: question._id})
-            .select('content')
-            .exec(function (err, options) {
-              var _question = question.toObject();
-              _question.options = options;
-              callback(err, _question);
-            })
-        }, function (err, results) {
-          if (err) {
-            return res.json({
-              success: false,
-              error: err.message
-            })
-          }
-          res.json({
-            success: true,
-            title: questionaire.title,
-            questions: results,
-            done: false
+    if (!err && docs.length > 0) {
+      res.json({
+        success: true,
+        done: true,
+      });
+    } else {
+      var questionnaireId = req.params.questionnaire;
+      Questionnaire.findById(questionnaireId)
+        .select('title questions')
+        .populate({
+          path: 'questions',
+          select: 'content type'
+        })
+        .exec(function (err, questionaire) {
+          async.map(questionaire.questions, function (question, callback) {
+            Option.find({question: question._id})
+              .select('content')
+              .exec(function (err, options) {
+                var _question = question.toObject();
+                _question.options = options;
+                callback(err, _question);
+              })
+          }, function (err, results) {
+            if (err) {
+              return res.json({
+                success: false,
+                error: err.message
+              })
+            }
+            res.json({
+              success: true,
+              title: questionaire.title,
+              questions: results,
+              done: false
+            });
           });
         });
-      });
-    //}
+    }
   });
 };
 
