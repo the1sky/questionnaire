@@ -5,5 +5,5 @@ module.exports = {
   noncestr: 'Wm3WZYTPz0wzccnW',
   accessTokenUrl: 'https://api.weixin.qq.com/cgi-bin/token',
   ticketUrl: 'https://api.weixin.qq.com/cgi-bin/ticket/getticket',
-  cache_duration: 1000 * 60 * 60 * 24
+  cache_duration: 1000 * 60 * 60 * 2
 }

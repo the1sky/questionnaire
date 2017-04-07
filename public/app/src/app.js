@@ -91,8 +91,19 @@ var Result = React.createClass({
     });
     return {
       title: '',
-      questions: []
+      questions: [],
+      showShareHint: false,
     };
+  },
+  clickShareHandler: function () {
+    this.setState({
+      showShareHint: true,
+    });
+  },
+  clickShareHintHandler: function () {
+    this.setState({
+      showShareHint: false,
+    });
   },
   render: function () {
     var imageUrl = this.state.image;
@@ -103,25 +114,64 @@ var Result = React.createClass({
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center',
       height: '100%',
+      position: 'relative',
     };
     var scoreStyles = {
-      position: 'fixed',
+      position: 'absolute',
       color: '#FFF',
       display: 'inline-block',
       top: '12%',
       fontSize: '60px',
-      left: '50%',
+      left: '45%',
       marginLeft: '-60px',
       textShadow: '5px 2px 6px rgba(0,0,0,0.6)',
       fontStyle: 'italic',
       fontWeight: 'bold',
+      zIndex: 100,
+    };
+    var hiddenImageStyles = {
+      width: '100%',
+      visibility: 'hidden',
+      position: 'absolute',
+      bottom: 0,
+    };
+    var clickShareStyles = {
+      height: '35px',
+      position: 'absolute',
+      bottom: 10,
+      left: 0,
+    };
+    var shareHintStyles = {
+      position: 'absolute',
+      zIndex: 1000,
+      width: '100%',
+      height: '100%',
+      top: 0,
+      left: 0,
+      backgroundColor: 'rgba(0,0,0,.4)',
+    };
+    var shareHintImageStyles = {
+      width: '70%',
+      position: 'absolute',
+      top: 15,
+      right: 15,
+
     };
     return (
-      <div style={{height: '100%'}}>
+      <div style={{height: '100%', position: 'relative'}}>
         <div style={scoreStyles}>{score}分</div>
         {
           this.state.image ?
-            <div style={styles}/> : null
+            <div style={styles}>
+              <img src={imageUrl} alt="" style={hiddenImageStyles}/>
+              <img src='/images/clickShare.png' alt="" style={clickShareStyles} onTouchEnd={this.clickShareHandler}/>
+              {
+                this.state.showShareHint ?
+                  <div style={shareHintStyles} onTouchEnd={this.clickShareHintHandler}>
+                    <img src={'/images/share-hint.png'} alt="" style={shareHintImageStyles}/>
+                  </div> : null
+              }
+            </div> : null
         }
       </div>
     )

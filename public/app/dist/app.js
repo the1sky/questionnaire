@@ -42738,8 +42738,19 @@ var Result = React.createClass({
     });
     return {
       title: '',
-      questions: []
+      questions: [],
+      showShareHint: false
     };
+  },
+  clickShareHandler: function () {
+    this.setState({
+      showShareHint: true
+    });
+  },
+  clickShareHintHandler: function () {
+    this.setState({
+      showShareHint: false
+    });
   },
   render: function () {
     var imageUrl = this.state.image;
@@ -42749,30 +42760,70 @@ var Result = React.createClass({
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center',
-      height: '100%'
+      height: '100%',
+      position: 'relative'
     };
     var scoreStyles = {
-      position: 'fixed',
+      position: 'absolute',
       color: '#FFF',
       display: 'inline-block',
       top: '12%',
       fontSize: '60px',
-      left: '50%',
+      left: '45%',
       marginLeft: '-60px',
       textShadow: '5px 2px 6px rgba(0,0,0,0.6)',
       fontStyle: 'italic',
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      zIndex: 100
+    };
+    var hiddenImageStyles = {
+      width: '100%',
+      visibility: 'hidden',
+      position: 'absolute',
+      bottom: 0
+    };
+    var clickShareStyles = {
+      height: '35px',
+      position: 'absolute',
+      bottom: 10,
+      left: 0
+    };
+    var shareHintStyles = {
+      position: 'absolute',
+      zIndex: 1000,
+      width: '100%',
+      height: '100%',
+      top: 0,
+      left: 0,
+      backgroundColor: 'rgba(0,0,0,.4)'
+    };
+    var shareHintImageStyles = {
+      width: '70%',
+      position: 'absolute',
+      top: 15,
+      right: 15
+
     };
     return React.createElement(
       'div',
-      { style: { height: '100%' } },
+      { style: { height: '100%', position: 'relative' } },
       React.createElement(
         'div',
         { style: scoreStyles },
         score,
         '\u5206'
       ),
-      this.state.image ? React.createElement('div', { style: styles }) : null
+      this.state.image ? React.createElement(
+        'div',
+        { style: styles },
+        React.createElement('img', { src: imageUrl, alt: '', style: hiddenImageStyles }),
+        React.createElement('img', { src: '/images/clickShare.png', alt: '', style: clickShareStyles, onTouchEnd: this.clickShareHandler }),
+        this.state.showShareHint ? React.createElement(
+          'div',
+          { style: shareHintStyles, onTouchEnd: this.clickShareHintHandler },
+          React.createElement('img', { src: '/images/share-hint.png', alt: '', style: shareHintImageStyles })
+        ) : null
+      ) : null
     );
   }
 });
