@@ -131,9 +131,9 @@ var Result = React.createClass({
       width: 'auto',
       left: '50%',
       position: 'absolute',
-      '-webkit-transform': 'translateX(-50%)',
-      '-ms-transform': 'translateX(-50%)',
-      '-moz-transform': 'translateX(-50%)',
+      WebkitTransform: 'translateX(-50%)',
+      msTransform: 'translateX(-50%)',
+      MozTransform: 'translateX(-50%)',
       zIndex: 90,
     };
     var clickShareStyles = {
