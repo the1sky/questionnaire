@@ -42756,9 +42756,6 @@ var Result = React.createClass({
     var imageUrl = this.state.image;
     var score = this.state.score;
     var styles = {
-      backgroundImage: 'url(' + imageUrl + ')',
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center',
       height: '100%',
       position: 'relative'
@@ -42769,18 +42766,21 @@ var Result = React.createClass({
       display: 'inline-block',
       top: '12%',
       fontSize: '60px',
-      left: '45%',
-      marginLeft: '-60px',
       textShadow: '5px 2px 6px rgba(0,0,0,0.6)',
       fontStyle: 'italic',
       fontWeight: 'bold',
+      width: '100%',
+      textAlign: 'center',
       zIndex: 100
     };
     var hiddenImageStyles = {
-      width: '100%',
-      visibility: 'hidden',
-      position: 'absolute',
-      bottom: 0
+      height: '100%',
+      width: 'auto',
+      left: '50%',
+      position: 'relative',
+      '-webkit-transform': 'translateX(-50%)',
+      '-ms-transform': 'translateX(-50%)',
+      '-moz-transform': 'translateX(-50%)'
     };
     var clickShareStyles = {
       height: '35px',
