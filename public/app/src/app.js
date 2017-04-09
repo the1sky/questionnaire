@@ -130,16 +130,18 @@ var Result = React.createClass({
       height: '100%',
       width: 'auto',
       left: '50%',
-      position: 'relative',
+      position: 'absolute',
       '-webkit-transform': 'translateX(-50%)',
       '-ms-transform': 'translateX(-50%)',
       '-moz-transform': 'translateX(-50%)',
+      zIndex: 90,
     };
     var clickShareStyles = {
       height: '35px',
       position: 'absolute',
       bottom: 10,
       left: 0,
+      zIndex: 91,
     };
     var shareHintStyles = {
       position: 'absolute',
@@ -149,6 +151,7 @@ var Result = React.createClass({
       top: 0,
       left: 0,
       backgroundColor: 'rgba(0,0,0,.4)',
+      zIndex: 101,
     };
     var shareHintImageStyles = {
       width: '70%',
@@ -164,6 +167,13 @@ var Result = React.createClass({
           this.state.image ?
             <div style={styles}>
               <img src={imageUrl} alt="" style={hiddenImageStyles}/>
+              <img src='/images/clickShare.png' alt="" style={clickShareStyles} onTouchEnd={this.clickShareHandler}/>
+              {
+                this.state.showShareHint ?
+                  <div style={shareHintStyles} onTouchEnd={this.clickShareHintHandler}>
+                    <img src={'/images/share-hint.png'} alt="" style={shareHintImageStyles}/>
+                  </div> : null
+              }
             </div> : null
         }
       </div>
