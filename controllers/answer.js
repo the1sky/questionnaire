@@ -156,7 +156,7 @@ exports.getScoreResult = function (req, res) {
   var sessionID = req.sessionID;
   var questionnaireId = req.params.questionnaire;
   Answer.findOne({sessionID: sessionID, 'questionnaire': questionnaireId}, function (err, docs) {
-    if (!err) {
+    if (!err && docs) {
       var score = docs._doc.score;
       res.json({
         success: true,
