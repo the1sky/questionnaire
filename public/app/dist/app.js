@@ -42656,7 +42656,7 @@ var history = createBrowserHistory();
 var Container = React.createClass({
   displayName: 'Container',
 
-  render() {
+  render: function () {
     return React.createElement(
       'div',
       { style: { height: '100%' } },

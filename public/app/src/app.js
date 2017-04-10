@@ -13,7 +13,7 @@ var createBrowserHistory = require('history/lib/createBrowserHistory');
 var history = createBrowserHistory();
 
 var Container = React.createClass({
-  render() {
+  render: function () {
     return (
       <div style={{height: '100%'}}>
         {this.props.children}
