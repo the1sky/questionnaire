@@ -42725,7 +42725,7 @@ var Result = React.createClass({
     $.ajax({
       url: '/user/getScore/' + questionnaireId,
       success: function (data) {
-        if (data.success) {
+        if (data.success && data.score) {
           self.setState({
             image: data.image,
             score: data.score
