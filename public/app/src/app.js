@@ -127,7 +127,6 @@ var Result = React.createClass({
       zIndex: 100,
     };
     var hiddenImageStyles = {
-      height: '100%',
       width: 'auto',
       left: '50%',
       position: 'absolute',
