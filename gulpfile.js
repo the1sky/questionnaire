@@ -12,7 +12,14 @@ gulp.task('jsx', function () {
     .transform('babelify', {presets: ["react"]})
     .bundle()
     .pipe(source('index.js'))
+    .pipe(streamify(uglify()))
     .pipe(rename('app.js'))
+    .pipe(gulp.dest('./public/app/dist'));
+});
+
+gulp.task('share', function () {
+  gulp.src('./public/share/share.js')
+    .pipe(uglify())
     .pipe(gulp.dest('./public/app/dist'));
 });
 
@@ -29,4 +36,4 @@ gulp.task('serve', function () {
   })
 });
 
-gulp.task('default', ['watch', 'jsx', 'serve']);
+gulp.task('default', ['watch', 'jsx', 'share', 'serve']);
