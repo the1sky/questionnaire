@@ -43,7 +43,7 @@ exports.indexPage = function (req, res) {
   signature.sign(url, function (signatureMap) {
     signatureMap.appId = wechat_cfg.appid;
     console.log('sign obj:', signatureMap);
-    res.render('app/index.jade', signatureMap);
+    res.render('app/index', signatureMap);
   });
 };
 
