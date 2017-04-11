@@ -75,6 +75,6 @@ app.use(function (err, req, res, next) {
   res.send(err.message);
 });
 
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 80;
 console.log('listen port ======== ' + port)
 app.listen(port);
