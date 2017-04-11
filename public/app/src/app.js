@@ -127,11 +127,12 @@ var Result = React.createClass({
       zIndex: 100,
     };
     var hiddenImageStyles = {
-      height: 'auto',
-      width: '180px',
-      left: '100px',
-      top: '100px',
+      width: 'auto',
+      left: '50%',
       position: 'absolute',
+      WebkitTransform: 'translateX(-50%)',
+      msTransform: 'translateX(-50%)',
+      MozTransform: 'translateX(-50%)',
       zIndex: 90,
     };
     var clickShareStyles = {
