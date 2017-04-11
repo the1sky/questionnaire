@@ -171,6 +171,7 @@ var Result = React.createClass({
               {
                 this.state.showShareHint ?
                   <div style={shareHintStyles} onTouchEnd={this.clickShareHintHandler}>
+                    <img src={'/images/share-hint.png'} alt="" style={shareHintImageStyles}/>
                   </div> : null
               }
             </div> : null
