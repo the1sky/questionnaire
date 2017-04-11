@@ -42775,12 +42775,8 @@ var Result = React.createClass({
     };
     var hiddenImageStyles = {
       height: 'auto',
-      width: 'auto',
-      left: '50%',
+      width: '90%',
       position: 'absolute',
-      WebkitTransform: 'translateX(-50%)',
-      msTransform: 'translateX(-50%)',
-      MozTransform: 'translateX(-50%)',
       zIndex: 90
     };
     var clickShareStyles = {
