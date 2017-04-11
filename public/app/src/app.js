@@ -162,10 +162,13 @@ var Result = React.createClass({
     };
     return (
       <div style={{height: '100%', position: 'relative'}}>
+        <div style={scoreStyles}>{score}分</div>
         {
           this.state.image ?
             <div style={styles}>
               <img src={imageUrl} alt="" style={hiddenImageStyles} className="score-image"/>
+              <img src='/images/clickShare.png' alt="" style={clickShareStyles}
+                   onTouchEnd={this.clickShareHandler.bind(this)}/>
               {
                 this.state.showShareHint ?
                   <div style={shareHintStyles} onTouchEnd={this.clickShareHintHandler}>
