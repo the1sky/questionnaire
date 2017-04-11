@@ -128,7 +128,9 @@ var Result = React.createClass({
     };
     var hiddenImageStyles = {
       height: 'auto',
-      width: '90%',
+      width: '180px',
+      left: '100px',
+      top: '100px',
       position: 'absolute',
       zIndex: 90,
     };
@@ -150,7 +152,7 @@ var Result = React.createClass({
       zIndex: 101,
     };
     var shareHintImageStyles = {
-      width: 'auto',
+      width: '70%',
       position: 'absolute',
       top: 15,
       right: 15,
