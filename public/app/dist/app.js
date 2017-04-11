@@ -42797,7 +42797,7 @@ var Result = React.createClass({
       zIndex: 101
     };
     var shareHintImageStyles = {
-      width: '70%',
+      width: 'auto',
       position: 'absolute',
       top: 15,
       right: 15
