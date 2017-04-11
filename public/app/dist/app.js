@@ -42774,6 +42774,7 @@ var Result = React.createClass({
       zIndex: 100
     };
     var hiddenImageStyles = {
+      height: '100%',
       width: 'auto',
       left: '50%',
       position: 'absolute',
@@ -42809,15 +42810,9 @@ var Result = React.createClass({
     return React.createElement(
       'div',
       { style: { height: '100%', position: 'relative' } },
-      React.createElement(
-        'div',
-        { style: scoreStyles },
-        score,
-        '\u5206'
-      ),
       this.state.image ? React.createElement(
         'div',
-        { style: styles },
+        null,
         React.createElement('img', { src: imageUrl, alt: '', style: hiddenImageStyles }),
         React.createElement('img', { src: '/images/clickShare.png', alt: '', style: clickShareStyles, onTouchEnd: this.clickShareHandler }),
         this.state.showShareHint ? React.createElement(

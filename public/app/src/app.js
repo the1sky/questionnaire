@@ -127,6 +127,7 @@ var Result = React.createClass({
       zIndex: 100,
     };
     var hiddenImageStyles = {
+      height: '100%',
       width: 'auto',
       left: '50%',
       position: 'absolute',
@@ -161,10 +162,9 @@ var Result = React.createClass({
     };
     return (
       <div style={{height: '100%', position: 'relative'}}>
-        <div style={scoreStyles}>{score}分</div>
         {
           this.state.image ?
-            <div style={styles}>
+            <div>
               <img src={imageUrl} alt="" style={hiddenImageStyles}/>
               <img src='/images/clickShare.png' alt="" style={clickShareStyles} onTouchEnd={this.clickShareHandler}/>
               {
