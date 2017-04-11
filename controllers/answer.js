@@ -19,7 +19,7 @@ var signature = require('../server/sign/signature');
  */
 function getImages(score) {
   var url = '/images/';
-  return url + 'test-qr.jpg';
+  return url + '1491871420.png';
   var suffix = 0;
   if (score == 100) {
     return url + 'score_100.jpg';
