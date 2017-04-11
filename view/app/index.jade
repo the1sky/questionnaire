@@ -8,13 +8,13 @@ html(lang='en')
         link(rel='stylesheet',type="text/css",href='/app/dist/app.css')
         link(rel='stylesheet',type="text/css",href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.css')
         script(src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js')
-        script(src='/share/share.js')
-    body
-        div#example
         script(type='text/javascript').
           var signature = '#{signature}';
           var nonceStr = '#{noncestr}';
           var timestamp = '#{timestamp}';
           var appId = '#{appId}';
           var jsapi_ticket = '#{jsapi_ticket}';
+        script(src='/share/share.js')
+    body
+        div#example
         script(src='/app/dist/app.js')
