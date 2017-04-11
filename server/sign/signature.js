@@ -10,6 +10,7 @@ exports.sign = function (url, callback) {
   console.log(cache.get('ticket'));
   if (cache.get('ticket')) {
     jsapi_ticket = cache.get('ticket');
+    console.log('cache get:', jsapi_ticket);
     console.log('1' + 'jsapi_ticket=' + jsapi_ticket + '&noncestr=' + noncestr + '&timestamp=' + timestamp + '&url=' + url);
     callback({
       noncestr: noncestr,
@@ -22,12 +23,12 @@ exports.sign = function (url, callback) {
     request(config.accessTokenUrl + '?grant_type=' + config.grant_type + '&appid=' + config.appid + '&secret=' + config.secret, function (error, response, body) {
       if (!error && response.statusCode == 200) {
         var tokenMap = JSON.parse(body);
-        console.log(tokenMap);
         request(config.ticketUrl + '?access_token=' + tokenMap.access_token + '&type=jsapi', function (error, resp, json) {
           if (!error && response.statusCode == 200) {
             var ticketMap = JSON.parse(json);
             cache.put('ticket', ticketMap.ticket, config.cache_duration);  //加入缓存
             console.log('jsapi_ticket=' + ticketMap.ticket + '&noncestr=' + noncestr + '&timestamp=' + timestamp + '&url=' + url);
+            console.log('request get:', ticketMap.ticket);
             callback({
               noncestr: noncestr,
               timestamp: timestamp,
