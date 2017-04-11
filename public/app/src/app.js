@@ -35,6 +35,7 @@ var App = React.createClass({
           } else {
             self.setState({
               title: data.title,
+              show: true,
               questions: data.questions
             });
           }
@@ -47,6 +48,7 @@ var App = React.createClass({
     });
     return {
       title: '',
+      show: false,
       questions: []
     };
   },
@@ -66,9 +68,16 @@ var App = React.createClass({
     });
   },
   render: function () {
-    return <Page title={this.state.title}
-                 questions={this.state.questions}
-                 onSubmit={this.handleSubmit}/>;
+    return (
+      <div>
+        {
+          this.state.show ?
+            <Page title={this.state.title}
+                  questions={this.state.questions}
+                  onSubmit={this.handleSubmit}/> : null
+        }
+      </div>
+    );
   }
 });
 
