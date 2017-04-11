@@ -3,7 +3,7 @@
  */
 var shareObj = {
   imgUrl: window.location.origin + '/images/share.jpeg',
-  link: window.location.href,
+  link: window.location.origin + window.location.pathname,
   desc: '两只熊问券调查',
   title: '测试你的钓鱼级别，新手、大师一测就知道。。',
 };
