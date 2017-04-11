@@ -42809,7 +42809,7 @@ var Result = React.createClass({
       this.state.image ? React.createElement(
         'div',
         null,
-        React.createElement('img', { src: imageUrl, alt: '', style: hiddenImageStyles }),
+        React.createElement('img', { src: imageUrl, alt: '', style: hiddenImageStyles, className: 'score-image' }),
         React.createElement('img', { src: '/images/clickShare.png', alt: '', style: clickShareStyles, onTouchEnd: this.clickShareHandler }),
         this.state.showShareHint ? React.createElement(
           'div',

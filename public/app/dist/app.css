@@ -10,3 +10,10 @@ html, body, #example {
     -ms-user-select: none;
     user-select: none;
 }
+
+.score-image {
+    height: auto;
+    width: 90%;
+    position: absolute;
+    z-index: 90;
+}

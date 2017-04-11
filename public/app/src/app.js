@@ -161,7 +161,7 @@ var Result = React.createClass({
         {
           this.state.image ?
             <div>
-              <img src={imageUrl} alt="" style={hiddenImageStyles}/>
+              <img src={imageUrl} alt="" style={hiddenImageStyles} className="score-image"/>
               <img src='/images/clickShare.png' alt="" style={clickShareStyles} onTouchEnd={this.clickShareHandler}/>
               {
                 this.state.showShareHint ?
