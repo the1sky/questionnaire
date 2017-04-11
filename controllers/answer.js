@@ -42,6 +42,7 @@ exports.indexPage = function (req, res) {
   var url = req.protocol + '://' + req.host + req.originalUrl; //获取当前url
   signature.sign(url, function (signatureMap) {
     signatureMap.appId = wechat_cfg.appid;
+    console.log('sign obj:', signatureMap);
     res.render('app/index', signatureMap);
   });
 };
