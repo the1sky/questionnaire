@@ -42775,6 +42775,7 @@ var Result = React.createClass({
     };
     var hiddenImageStyles = {
       width: 'auto',
+      height: '100%',
       left: '50%',
       position: 'absolute',
       WebkitTransform: 'translateX(-50%)',
