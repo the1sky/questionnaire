@@ -91,6 +91,7 @@ var Result = React.createClass({
           self.setState({
             image: data.image,
             score: data.score,
+            id: data.id,
           });
         } else {
           var history = self.props.history;
@@ -117,10 +118,17 @@ var Result = React.createClass({
   render: function () {
     var imageUrl = this.state.image;
     var score = this.state.score;
+    var id = this.state.id;
     var styles = {
       backgroundPosition: 'center',
       height: '100%',
       position: 'relative',
+    };
+    var memberIdStyles = {
+      display: 'inline-block',
+      position: 'absolute',
+      left: 15,
+      top: 15,
     };
     var scoreStyles = {
       position: 'absolute',
@@ -175,6 +183,7 @@ var Result = React.createClass({
         {
           this.state.image ?
             <div style={styles}>
+              <div style={memberIdStyles} className="member-id">{id}</div>
               <img src={imageUrl} alt="" style={hiddenImageStyles} className="score-image"/>
               <img src='/images/clickShare.png' alt="" style={clickShareStyles} onTouchEnd={this.clickShareHandler}/>
               {
