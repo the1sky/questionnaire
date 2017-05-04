@@ -164,11 +164,13 @@ exports.getScoreResult = function (req, res) {
         success: true,
         image: getImages(score),
         score: score,
-        user:user,
+        user: user,
+        id: sessionID,
       });
     } else {
       res.json({
-        success: true
+        success: true,
+        id: sessionID,
       });
     }
   })
