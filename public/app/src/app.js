@@ -28,6 +28,7 @@ var App = React.createClass({
     $.ajax({
       url: '/user/questionnaire/' + questionnaireId,
       success: function (data) {
+        console.log(data);
         if (data.success) {
           if (data.done) {
             var history = self.props.history;
@@ -68,6 +69,7 @@ var App = React.createClass({
     });
   },
   render: function () {
+    console.log(this.state);
     return (
       <div>
         {

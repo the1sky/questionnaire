@@ -12,6 +12,7 @@ gulp.task('jsx', function () {
     .transform('babelify', {presets: ["react"]})
     .bundle()
     .pipe(source('index.js'))
+    .pipe(streamify(uglify()))
     .pipe(rename('app.js'))
     .pipe(gulp.dest('./public/app/dist'));
 });
