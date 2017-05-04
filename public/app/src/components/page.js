@@ -39,7 +39,7 @@ var Page = React.createClass({
   handleCheck: function (action) {
     var answers = _.clone(this.state.answers);
     if (action.checked) {
-      if (answers[action.questionId].indexOf(action.value) < 0)
+      if (answers[action.questionId] && answers[action.questionId].indexOf(action.value) < 0)
         answers[action.questionId].push(action.value);
     } else {
       var index = answers[action.questionId].indexOf(action.value);
