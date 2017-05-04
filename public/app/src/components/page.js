@@ -12,6 +12,7 @@ var Page = React.createClass({
   componentWillReceiveProps: function (nextProps) {
     var answers = _.clone(this.state.answers);
     nextProps.questions.forEach(function (question) {
+      console.log(question);
       switch (question.type) {
         case 0:
           answers[question._id] = '';
@@ -39,7 +40,7 @@ var Page = React.createClass({
   handleCheck: function (action) {
     var answers = _.clone(this.state.answers);
     if (action.checked) {
-      if (answers[action.questionId] && answers[action.questionId].indexOf(action.value) < 0)
+      if (answers[action.questionId].indexOf(action.value) < 0)
         answers[action.questionId].push(action.value);
     } else {
       var index = answers[action.questionId].indexOf(action.value);
@@ -51,7 +52,6 @@ var Page = React.createClass({
   },
   handleSubmit: function () {
     var answers = this.state.answers;
-    console.log(answers);
     for (var i = 0; i < this.props.questions.length; i++) {
       var question = this.props.questions[i];
       if (question.type == 1 && !answers[question._id]) {
