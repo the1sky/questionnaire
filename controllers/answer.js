@@ -42,7 +42,6 @@ exports.indexPage = function (req, res) {
   var url = req.protocol + '://' + req.host + req.originalUrl; //获取当前url
   signature.sign(url, function (signatureMap) {
     signatureMap.appId = wechat_cfg.appid;
-    console.log('sign obj:', signatureMap);
     res.render('app/index', signatureMap);
   });
 };
@@ -160,10 +159,12 @@ exports.getScoreResult = function (req, res) {
   Answer.findOne({sessionID: sessionID, 'questionnaire': questionnaireId}, function (err, docs) {
     if (!err && docs) {
       var score = docs._doc.score;
+      var user = docs._doc.user;
       res.json({
         success: true,
         image: getImages(score),
         score: score,
+        user:user,
       });
     } else {
       res.json({
