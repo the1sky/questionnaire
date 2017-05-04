@@ -40,10 +40,6 @@ var App = React.createClass({
               questions: data.questions
             });
           }
-          //self.setState({
-          //  title: data.title,
-          //  questions: data.questions
-          //});
         }
       }
     });
@@ -63,13 +59,12 @@ var App = React.createClass({
       },
       success: function (data) {
         if (data.success) {
-          history.replaceState(null, '/result/' + questionnaireId);
+          //history.replaceState(null, '/result/' + questionnaireId);
         }
       }
     });
   },
   render: function () {
-    console.log('this.state:', this.state);
     return (
       <div>
         {
@@ -96,8 +91,8 @@ var Result = React.createClass({
             id: data.id,
           });
         } else {
-          var history = self.props.history;
-          history.replaceState(null, '/questionnaire/' + questionnaireId);
+          //var history = self.props.history;
+          //history.replaceState(null, '/questionnaire/' + questionnaireId);
         }
       }
     });

@@ -7,14 +7,11 @@ var Question = require('./question');
 
 var Page = React.createClass({
   getInitialState: function () {
-    console.log(this.props);
     return {answers: {}}
   },
   componentWillReceiveProps: function (nextProps) {
     var answers = _.clone(this.state.answers);
-    console.log(nextProps.questions);
     nextProps.questions.forEach(function (question) {
-      console.log(question);
       switch (question.type) {
         case 0:
           answers[question._id] = '';

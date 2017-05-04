@@ -165,7 +165,7 @@ exports.getScoreResult = function (req, res) {
         image: getImages(score),
         score: score,
         user: user,
-        id: sessionID,
+        id: sessionID ? sessionID.substring(0, 8) : sessionID,
       });
     } else {
       res.json({
