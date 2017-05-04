@@ -69,7 +69,7 @@ var App = React.createClass({
     });
   },
   render: function () {
-    console.log(this.state);
+    console.log('this.state:', this.state);
     return (
       <div>
         {

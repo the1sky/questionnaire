@@ -11,6 +11,7 @@ var Page = React.createClass({
   },
   componentWillReceiveProps: function (nextProps) {
     var answers = _.clone(this.state.answers);
+    console.log(nextProps.questions);
     nextProps.questions.forEach(function (question) {
       console.log(question);
       switch (question.type) {
