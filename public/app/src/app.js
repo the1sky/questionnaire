@@ -127,8 +127,10 @@ var Result = React.createClass({
     var memberIdStyles = {
       display: 'inline-block',
       position: 'absolute',
-      left: 15,
-      top: 15,
+      left: 5,
+      top: 5,
+      zIndex: 100,
+      color: '#FFF',
     };
     var scoreStyles = {
       position: 'absolute',
