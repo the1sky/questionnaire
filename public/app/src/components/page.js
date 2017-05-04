@@ -7,6 +7,7 @@ var Question = require('./question');
 
 var Page = React.createClass({
   getInitialState: function () {
+    console.log(this.props);
     return {answers: {}}
   },
   componentWillReceiveProps: function (nextProps) {
