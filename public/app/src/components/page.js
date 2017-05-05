@@ -9,6 +9,23 @@ var Page = React.createClass({
   getInitialState: function () {
     return {answers: {}}
   },
+  componentWillMount: function () {
+    var answers = _.clone(this.state.answers);
+    nextProps.questions.forEach(function (question) {
+      switch (question.type) {
+        case 0:
+          answers[question._id] = '';
+          break;
+        case 1:
+          answers[question._id] = '';
+          break;
+        case 2:
+          answers[question._id] = [];
+          break;
+      }
+    }.bind(this));
+    this.setState({answers: answers});
+  },
   componentWillReceiveProps: function (nextProps) {
     var answers = _.clone(this.state.answers);
     nextProps.questions.forEach(function (question) {

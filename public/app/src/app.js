@@ -28,7 +28,6 @@ var App = React.createClass({
     $.ajax({
       url: '/user/questionnaire/' + questionnaireId,
       success: function (data) {
-        console.log(data);
         if (data.success) {
           if (data.done) {
             var history = self.props.history;
@@ -59,7 +58,7 @@ var App = React.createClass({
       },
       success: function (data) {
         if (data.success) {
-          //history.replaceState(null, '/result/' + questionnaireId);
+          history.replaceState(null, '/result/' + questionnaireId);
         }
       }
     });
@@ -91,8 +90,8 @@ var Result = React.createClass({
             id: data.id,
           });
         } else {
-          //var history = self.props.history;
-          //history.replaceState(null, '/questionnaire/' + questionnaireId);
+          var history = self.props.history;
+          history.replaceState(null, '/questionnaire/' + questionnaireId);
         }
       }
     });
