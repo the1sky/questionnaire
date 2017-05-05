@@ -5,7 +5,7 @@ var shareObj = {
   imgUrl: window.location.origin + '/images/share.jpeg',
   link: window.location.origin + window.location.pathname,
   desc: '两只熊问券调查',
-  title: '测试你的钓鱼级别，新手、大师一测就知道。。',
+  title: '测试钓鱼水平，达标领轻麸',
 };
 
 wx.config({
