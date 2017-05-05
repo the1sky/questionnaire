@@ -11,7 +11,8 @@ var Page = React.createClass({
   },
   componentWillMount: function () {
     var answers = _.clone(this.state.answers);
-    nextProps.questions.forEach(function (question) {
+    console.log(this.props);
+    this.props.questions.forEach(function (question) {
       switch (question.type) {
         case 0:
           answers[question._id] = '';
