@@ -232,7 +232,7 @@ exports.statistics = function (req, res) {
           .select('content')
           .exec(function (err, answers) {
             async.each(answers, function (_answer, callback) {
-              var answer = JSON.parse(_answer.content);
+              var answer = _answer.content;
               for (var questionId in answer) {
                 if (answer.hasOwnProperty(questionId)) {
                   for (var i = 0, len = questions.length; i < len; i++) {
